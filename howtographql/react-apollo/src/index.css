@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.font30 {
+    font-size: 30px;
+}
+
+input {
+    max-width: 500px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.gray {
+    color: #828282;
+}
+
+.orange {
+    background-color: #ff6600;
+}
+
+.background-gray {
+    background-color: rgb(246, 246, 239);
+}
+
+.f11 {
+    font-size: 11px;
+}
+
+.w85 {
+    width: 85%;
+}
+
+button,
+.button {
+    font-family: monospace;
+    font-size: 14px;
+    color: black;
+    background-color: buttonface;
+    text-align: center;
+    padding: 2px 6px 3px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonface;
+    cursor: pointer;
+    max-width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.button,
+button:hover {
+    border-color: red;
+    cursor: pointer;
+}
+
+button:focus,
+.button:focus {
+    outline: none;
+}
+
+.searchInput {
+    margin: 0 10px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loadingComponent {
+    position: relative;
+    height: 230px;
+    background: #fff;
+    margin-bottom: 50px;
+}
+
+.loadingComponent .loading {
+    position: absolute;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #4dae4a;
+    width: 60px;
+    height: 60px;
+    left: 50%;
+    top: 50%;
+    animation: spin 2s linear infinite;
+    margin-left: -30px;
+    margin-top: -30px;
+}
