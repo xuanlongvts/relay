@@ -57,7 +57,7 @@ button,
     outline: none;
 }
 
-.button,
+.button:hover,
 button:hover {
     border-color: red;
     cursor: pointer;
@@ -70,6 +70,11 @@ button:focus,
 
 .searchInput {
     margin: 0 10px;
+}
+
+.votes-act:hover {
+    cursor: pointer;
+    color: red;
 }
 
 @keyframes spin {

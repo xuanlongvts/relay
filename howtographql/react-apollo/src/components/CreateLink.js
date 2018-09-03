@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import { LINKS_PER_PAGE } from '../constants';
 import { FEED_QUERY } from './LinkList';
 
 const POST_MUTATION = gql`
@@ -23,11 +24,18 @@ class CreateLink extends Component {
     };
 
     updateCacheAfterLink = (store, { data: post }) => {
-        const data = store.readQuery({ query: FEED_QUERY });
+        const first = LINKS_PER_PAGE;
+        const skip = 0;
+        const orderBy = 'createdAt_DESC';
+        const data = store.readQuery({
+            query: FEED_QUERY,
+            variables: { first, skip, orderBy }
+        });
         data.feed.links.unshift(post);
         store.writeQuery({
             query: FEED_QUERY,
-            data
+            data,
+            variables: { first, skip, orderBy }
         });
     };
 
@@ -56,7 +64,7 @@ class CreateLink extends Component {
                 <Mutation
                     mutation={POST_MUTATION}
                     variables={{ description, url }}
-                    onCompleted={() => history.push('/')}
+                    onCompleted={() => history.push('/new/1')}
                     update={this.updateCacheAfterLink}
                 >
                     {postMutation => <button onClick={postMutation}>Submit</button>}
