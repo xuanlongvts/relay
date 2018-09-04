@@ -121,7 +121,7 @@ class LinkList extends Component {
             match
         } = this.props;
         const isNewPage = pathname.includes('new');
-        const page = parseInt(match.page, 10);
+        const page = parseInt(match.params.page, 10);
 
         const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
         const first = isNewPage ? LINKS_PER_PAGE : 100;
@@ -207,7 +207,7 @@ class LinkList extends Component {
                     this.subcribeToNewLinks(subscribeToMore);
                     this.subscribeToNewVotes(subscribeToMore);
 
-                    const linksToRender = data.feed.links;
+                    const linksToRender = this.getLinksToRender(data);
                     const isNewPage = pathname.includes('new');
                     const pageIndex = match.params.page ? (match.params.page - 1) * LINKS_PER_PAGE : 0;
 
