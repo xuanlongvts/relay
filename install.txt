@@ -1,0 +1,4 @@
+yarn add @babel/core @babel/plugin-proposal-class-properties @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react @babel/runtime babel-loader babel-plugin-relay classnames express express-graphql graphql graphql-relay prettier prop-types react react-dom react-relay todomvc-app-css todomvc-common webpack webpack-dev-server whatwg-fetch
+
+
+yarn add --dev @babel/node relay-compiler
