@@ -1,0 +1,30 @@
+{
+    "name": "be-graphql",
+    "version": "1.0.0",
+    "description": "be graphql relay",
+    "main": "index.js",
+    "author": "xuanlongvts@gmail.com",
+    "license": "MIT",
+    "scripts": {
+        "start": "nodemon app.js"
+    },
+    "dependencies": {
+        "@babel/core": "^7.0.1",
+        "@babel/plugin-proposal-class-properties": "^7.0.0",
+        "@babel/plugin-transform-runtime": "^7.0.0",
+        "@babel/preset-env": "^7.0.0",
+        "@babel/preset-react": "^7.0.0",
+        "@babel/runtime": "^7.0.0",
+        "babel-loader": "^8.0.2",
+        "babel-plugin-relay": "^1.6.2",
+        "express": "^4.16.3",
+        "express-graphql": "^0.6.12",
+        "graphql": "^14.0.2",
+        "graphql-relay": "^0.5.5",
+        "mongoose": "^5.2.15",
+        "nodemon": "^1.18.4"
+    },
+    "devDependencies": {
+        "@babel/node": "^7.0.0"
+    }
+}
