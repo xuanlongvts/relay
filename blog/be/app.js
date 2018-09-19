@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const graphQLHTTP = require('express-graphql');
 const { GraphQLSchema } = require('graphql');
 
@@ -11,6 +12,7 @@ const schema = new GraphQLSchema({
 });
 
 let app = express();
+app.use(cors());
 
 app.use(
     '/backend',

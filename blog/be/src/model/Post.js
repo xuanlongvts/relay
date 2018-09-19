@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost:27017');
 
 const Schema = mongoose.Schema;
+
 const postSchema = new Schema({
     title: String,
     content: String
@@ -12,7 +13,7 @@ var PostModel = mongoose.model('Post', postSchema);
 
 module.exports = {
     getPosts: () => {
-        return PostModel.find();
+        return PostModel.find().sort({ _id: -1 });
     },
     getPost: id => {
         return PostModel.findOne({ _id: id });
