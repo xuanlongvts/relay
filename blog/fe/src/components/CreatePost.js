@@ -34,7 +34,7 @@ class CreatePost extends React.Component {
 
     _handlePost = viewerId => {
         const { title, content } = this.state;
-        CreatePostMutation(title, content, viewerId, () => {
+        CreatePostMutation(title, content, this.state.user.id, viewerId, () => {
             this.props.history.push('/');
         });
     };

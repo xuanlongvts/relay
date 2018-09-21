@@ -28,7 +28,7 @@ class ListPage extends React.Component {
             return;
         }
 
-        this.props.relay.loadMore(1);
+        this.props.relay.loadMore(2);
     }
 
     render() {
@@ -94,61 +94,61 @@ const styles = {
     }
 };
 
-export default createFragmentContainer(
-    ListPage,
-    graphql`
-        fragment ListPage_viewer on Viewer {
-            allPosts(last: 5, order: "DESC") @connection(key: "ListPage_allPosts", filters: []) {
-                edges {
-                    node {
-                        ...Post_post
-                    }
-                }
-            }
-        }
-    `
-);
-
-// export default createPaginationContainer(
+// export default createFragmentContainer(
 //     ListPage,
 //     graphql`
 //         fragment ListPage_viewer on Viewer {
-//             allPosts(first: $count, after: $after, order: "DESC") @connection(key: "ListPage_allPosts", filters: []) {
+//             allPosts(last: 5, order: "DESC") @connection(key: "ListPage_allPosts", filters: []) {
 //                 edges {
 //                     node {
 //                         ...Post_post
 //                     }
 //                 }
-//                 pageInfo {
-//                     hasNextPage
-//                     endCursor
-//                 }
 //             }
 //         }
-//     `,
-//     {
-//         direction: 'forward',
-//         query: graphql`
-//             query ListPageForwardQuery($count: Int!, $after: String) {
-//                 viewer {
-//                     ...ListPage_viewer
-//                 }
-//             }
-//         `,
-//         getConnectionFromProps(props) {
-//             return props.viewer && props.viewer.allPosts;
-//         },
-//         getFragmentVariables(previousVariables, totalCount) {
-//             return {
-//                 ...previousVariables,
-//                 count: totalCount
-//             };
-//         },
-//         getVariables(props, paginationInfo, fragmentVariables) {
-//             return {
-//                 count: paginationInfo.count,
-//                 after: paginationInfo.cursor
-//             };
-//         }
-//     }
+//     `
 // );
+
+export default createPaginationContainer(
+    ListPage,
+    graphql`
+        fragment ListPage_viewer on Viewer {
+            allPosts(first: $count, after: $after, order: "DESC") @connection(key: "ListPage_allPosts", filters: []) {
+                edges {
+                    node {
+                        ...Post_post
+                    }
+                }
+                pageInfo {
+                    hasNextPage
+                    endCursor
+                }
+            }
+        }
+    `,
+    {
+        direction: 'forward',
+        query: graphql`
+            query ListPageForwardQuery($count: Int!, $after: String) {
+                viewer {
+                    ...ListPage_viewer
+                }
+            }
+        `,
+        getConnectionFromProps(props) {
+            return props.viewer && props.viewer.allPosts;
+        },
+        getFragmentVariables(previousVariables, totalCount) {
+            return {
+                ...previousVariables,
+                count: totalCount
+            };
+        },
+        getVariables(props, paginationInfo, fragmentVariables) {
+            return {
+                count: paginationInfo.count,
+                after: paginationInfo.cursor
+            };
+        }
+    }
+);

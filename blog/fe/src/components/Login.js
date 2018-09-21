@@ -63,6 +63,10 @@ class Login extends Component {
         const { username, password, fullname } = this.state;
         if (this.state.login) {
             LoginUserMutation(username, password, user => {
+                if (!user) {
+                    alert('wrong user');
+                    return;
+                }
                 localStorage.setItem('User', JSON.stringify(user));
                 this.props.history.push('/');
             });
