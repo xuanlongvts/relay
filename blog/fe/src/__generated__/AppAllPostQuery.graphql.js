@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 736dc878cbba0415e57fe70645285be1
+ * @relayHash f8cbe445dd06e7d272dac27fe34ebe9b
  */
 
 /* eslint-disable */
@@ -32,7 +32,7 @@ query AppAllPostQuery {
 }
 
 fragment ListPage_viewer on Viewer {
-  allPosts(last: 100) {
+  allPosts(last: 5, order: "DESC") {
     edges {
       node {
         ...Post_post
@@ -52,6 +52,10 @@ fragment Post_post on Post {
   id
   title
   content
+  author {
+    fullname
+    id
+  }
 }
 */
 
@@ -60,8 +64,14 @@ var v0 = [
   {
     "kind": "Literal",
     "name": "last",
-    "value": 100,
+    "value": 5,
     "type": "Int"
+  },
+  {
+    "kind": "Literal",
+    "name": "order",
+    "value": "DESC",
+    "type": "String"
   }
 ],
 v1 = {
@@ -76,7 +86,7 @@ return {
   "operationKind": "query",
   "name": "AppAllPostQuery",
   "id": null,
-  "text": "query AppAllPostQuery {\n  viewer {\n    ...ListPage_viewer\n    id\n  }\n}\n\nfragment ListPage_viewer on Viewer {\n  allPosts(last: 100) {\n    edges {\n      node {\n        ...Post_post\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment Post_post on Post {\n  id\n  title\n  content\n}\n",
+  "text": "query AppAllPostQuery {\n  viewer {\n    ...ListPage_viewer\n    id\n  }\n}\n\nfragment ListPage_viewer on Viewer {\n  allPosts(last: 5, order: \"DESC\") {\n    edges {\n      node {\n        ...Post_post\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment Post_post on Post {\n  id\n  title\n  content\n  author {\n    fullname\n    id\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -121,7 +131,7 @@ return {
             "kind": "LinkedField",
             "alias": null,
             "name": "allPosts",
-            "storageKey": "allPosts(last:100)",
+            "storageKey": "allPosts(last:5,order:\"DESC\")",
             "args": v0,
             "concreteType": "PostConnection",
             "plural": false,
@@ -158,6 +168,25 @@ return {
                         "name": "content",
                         "args": null,
                         "storageKey": null
+                      },
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "author",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "User",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "fullname",
+                            "args": null,
+                            "storageKey": null
+                          },
+                          v1
+                        ]
                       },
                       {
                         "kind": "ScalarField",

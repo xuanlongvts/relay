@@ -13,6 +13,14 @@ const AppAllPostQuery = graphql`
     }
 `;
 
+// const AppAllPostQuery = graphql`
+//     query AppAllPostQuery($count: Int!, $after: String) {
+//         viewer {
+//             ...ListPage_viewer
+//         }
+//     }
+// `;
+
 class App extends Component {
     render() {
         return (

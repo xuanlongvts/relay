@@ -1,22 +1,45 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLList } = require('graphql');
-const { connectionArgs, connectionFromPromisedArray } = require('graphql-relay');
+const { connectionArgs, connectionFromPromisedArray, fromGlobalId } = require('graphql-relay');
 
 const { nodeField } = require('../interface/Node');
+
 const { Post, PostConnection } = require('./Post');
 const PostModel = require('../model/Post');
+
+const { User } = require('./User');
+const UserModel = require('../model/User');
 
 const Viewer = new GraphQLObjectType({
     name: 'Viewer',
     fields: {
         allPosts: {
             type: new GraphQLNonNull(PostConnection),
-            args: connectionArgs,
-            resolve: (_, args) => connectionFromPromisedArray(PostModel.getPosts(), args)
+            args: { ...connectionArgs, order: { type: GraphQLString } },
+            resolve: (_, args) => connectionFromPromisedArray(PostModel.getPosts(args.order), args)
         },
         id: {
             type: new GraphQLNonNull(GraphQLID),
             args: {},
             resolve: (_, args) => 'viewer-fixed'
+        },
+        User: {
+            type: User,
+            args: {
+                id: {
+                    type: GraphQLID
+                },
+                username: {
+                    type: GraphQLString
+                }
+            },
+            resolve: (_, args) => {
+                const { type, id } = fromGlobalId(args.id);
+                if (type === 'User') {
+                    return UserModel.getUser(id, args.username);
+                }
+
+                return null;
+            }
         }
     }
 });

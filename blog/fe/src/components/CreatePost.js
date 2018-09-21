@@ -18,8 +18,18 @@ class CreatePost extends React.Component {
         super(props);
         this.state = {
             title: '',
-            content: ''
+            content: '',
+            user: null
         };
+    }
+
+    componentDidMount() {
+        const user = localStorage.getItem('User');
+        if (user) {
+            this.setState({ user: JSON.parse(user) });
+        } else {
+            window.location.href = '/';
+        }
     }
 
     _handlePost = viewerId => {

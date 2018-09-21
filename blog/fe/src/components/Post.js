@@ -52,6 +52,9 @@ export default createFragmentContainer(
             id
             title
             content
+            author {
+                fullname
+            }
         }
     `
 );

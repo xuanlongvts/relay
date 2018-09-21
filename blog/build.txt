@@ -1,0 +1,7 @@
+get-graphql-schema http://localhost:5000/backend > schema.graphql
+
+node_modules/.bin/relay-compiler --src ./src/ --schema ./schema.graphql
+
+
+https://www.packtpub.com/mapt/video/application_development/9781788623285
+acc: Pippo35@yahoo.it / Pippo35@yahoo.it
