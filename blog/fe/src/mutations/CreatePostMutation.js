@@ -50,6 +50,7 @@ export default (title, content, userId, viewerId, callback) => {
             const newPost = createPostField.getLinkedRecord('post');
             const viewerProxy = proxyStore.get(viewerId);
             const connection = ConnectionHandler.getConnection(viewerProxy, 'ListPage_allPosts');
+
             if (connection) {
                 ConnectionHandler.insertEdgeAfter(connection, newPost);
             }

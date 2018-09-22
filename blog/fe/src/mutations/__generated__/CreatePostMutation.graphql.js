@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ced590a03abcc78cd2bec570016995bb
+ * @relayHash 206020234e9074cd0ce5aed85c71dcba
  */
 
 /* eslint-disable */
@@ -12,6 +12,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type CreatePostInput = {
   title: string,
   content: string,
+  userId: string,
   clientMutationId?: ?string,
 };
 export type CreatePostMutationVariables = {|

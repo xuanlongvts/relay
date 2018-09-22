@@ -5,3 +5,13 @@ node_modules/.bin/relay-compiler --src ./src/ --schema ./schema.graphql
 
 https://www.packtpub.com/mapt/video/application_development/9781788623285
 acc: Pippo35@yahoo.it / Pippo35@yahoo.it
+
+
+
+https://www.howtographql.com/react-relay/6-more-mutations-and-updating-the-store/
+
+The proxyStore that’s being passed into them allows you to directly manipulate the cache with the changes you expect to happen through this mutation.
+
+optimisticUpdater is triggered right after the mutation is sent (before the server response comes back) - it allows you to implement the success scenario of the mutation so that the user sees the effect of her mutation right away without having to wait for the server response.
+
+updater is triggered when the actual server response comes back. If optimisticUpdater is implemented, then any changes that were introduced through it will be rolled back before updater is executed.
