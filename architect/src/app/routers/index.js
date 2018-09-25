@@ -1,56 +1,64 @@
-import React, { PureComponent } from 'react';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import React, { PureComponent, Fragment } from 'react';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
-import NotFound from '../components/NotFound';
-import RoutersUnAuthen from './RoutersUnAuthen';
-import RoutersAuthen from './RoutersAuthen';
+import Header from './header';
+import Footer from './footer';
+
+// import NotFound from '../components/NotFound';
+// import RoutersUnAuthen from './RoutersUnAuthen';
+// import RoutersAuthen from './RoutersAuthen';
 
 class Routers extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            isLogin: true,
-            routes: RoutersUnAuthen
-        };
     }
 
     componentDidMount() {
-        const { isLogin } = this.state;
-        if (isLogin) {
-            this.setState({
-                routes: RoutersAuthen
-            });
-        }
+        axios({
+            url: 'https://api.github.com/graphql',
+            method: 'post',
+            headers: { Authorization: 'Bearer 80f632b81b88f769fa15da42284cb719ab6f4eff' },
+            data: {
+                query: `
+                    query { 
+                        viewer {
+                            repositories(first: 50) {
+                              edges {
+                                repository:node {
+                                  name
+                        
+                                  issues(first: 10) {
+                                    totalCount
+                                    edges {
+                                      node {
+                                        title
+                                        bodyHTML
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                    }
+                `,
+            },
+        }).then(result => {
+            console.log(result.data);
+        });
     }
 
     render() {
-        const { routes } = this.state;
         return (
-            <BrowserRouter>
-                <div className="main-container">
-                    <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="Default React.js Boilerplate">
-                        <meta name="description" content="A React.js Boilerplate application" />
-                    </Helmet>
-                    {routes.length && (
-                        <ul className="nav">
-                            {routes.map((route, key) => (
-                                <Route key={key} path={route.path} exact={route.exact}>
-                                    {({ match }) => (
-                                        <li className={match ? 'active' : null}>
-                                            <Link to={route.path}>{route.title}</Link>
-                                        </li>
-                                    )}
-                                </Route>
-                            ))}
-                        </ul>
-                    )}
-                    <Switch>
-                        {routes.length && routes.map((route, key) => <Route key={key} {...route} />)}
-                        <Route component={NotFound} />
-                    </Switch>
-                </div>
-            </BrowserRouter>
+            <Fragment>
+                <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="Default React.js Boilerplate">
+                    <meta name="description" content="A React.js Boilerplate application" />
+                </Helmet>
+                <Header />
+                content
+                <Footer />
+            </Fragment>
         );
     }
 }

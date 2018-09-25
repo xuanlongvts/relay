@@ -51,7 +51,11 @@ class App extends PureComponent {
                 {isFetching && posts.length === 0 && <h2>Loading...</h2>}
                 {!isFetching && posts.length === 0 && <h2>Empty.</h2>}
                 {posts.length > 0 && (
-                    <ul className={isFetching ? 'loaded' : ''}>{posts.map((post, key) => <li key={key}>{post.title}</li>)}</ul>
+                    <ul className={isFetching ? 'loaded' : ''}>
+                        {posts.map((post, key) => (
+                            <li key={key}>{post.title}</li>
+                        ))}
+                    </ul>
                 )}
             </div>
         );
@@ -64,7 +68,7 @@ App.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     selectReddit: PropTypes.func.isRequired,
     invalidateReddit: PropTypes.func.isRequired,
-    lastUpdated: PropTypes.number.isRequired
+    lastUpdated: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -75,23 +79,23 @@ const mapStateToProps = state => {
     let { isFetching, lastUpdated, posts } = {
         isFetching: postsByRedditGetSelect === undefined ? true : postsByRedditGetSelect.getIn(['isFetching']),
         lastUpdated: (postsByRedditGetSelect && postsByRedditGetSelect.getIn(['lastUpdated'])) || Date.now(),
-        posts: (postsByRedditGetSelect && postsByRedditGetSelect.getIn(['items'])) || []
+        posts: (postsByRedditGetSelect && postsByRedditGetSelect.getIn(['items'])) || [],
     };
 
     return {
         selectedReddit,
         posts,
         isFetching,
-        lastUpdated
+        lastUpdated,
     };
 };
 
 const mapDispatchToProps = {
     selectReddit,
-    invalidateReddit
+    invalidateReddit,
 };
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(App);
