@@ -1,4 +1,3 @@
-// import { combineReducers } from 'redux';
 import { fromJS } from 'immutable';
 import { combineReducers } from 'redux-immutable';
 import { SELECT_REDDIT, REQUEST_POSTS, RECEIVE_POSTS, INVALIDATE_REDDIT } from './consts';
@@ -36,7 +35,7 @@ const postsByReddit = (state = fromJS({}), action) => {
 
 const rootReducer = combineReducers({
     postsByReddit,
-    selectedReddit
+    selectedReddit,
 });
 
 export default rootReducer;

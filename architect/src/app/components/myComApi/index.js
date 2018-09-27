@@ -30,7 +30,7 @@ class App extends PureComponent {
         const { selectedReddit, posts, isFetching, lastUpdated } = this.props;
 
         return (
-            <div className="reddit-api">
+            <section id="redditPage">
                 <span>
                     <h1>{selectedReddit}</h1>
                     <select onChange={e => this.handleChange(e.target.value)} value={selectedReddit}>
@@ -57,7 +57,7 @@ class App extends PureComponent {
                         ))}
                     </ul>
                 )}
-            </div>
+            </section>
         );
     }
 }

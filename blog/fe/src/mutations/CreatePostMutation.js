@@ -39,6 +39,7 @@ export default (title, content, userId, viewerId, callback) => {
             newPost.setValue(id, 'id');
             newPost.setValue(title, 'title');
             newPost.setValue(content, 'content');
+            console.log('proxyStore: ', proxyStore);
             const viewerProxy = proxyStore.get(viewerId);
             const connection = ConnectionHandler.getConnection(viewerProxy, 'ListPage_allPosts');
             if (connection) {

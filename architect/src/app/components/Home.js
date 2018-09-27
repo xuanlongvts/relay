@@ -3,10 +3,10 @@ import React, { PureComponent } from 'react';
 class Home extends PureComponent {
     render() {
         return (
-            <div className="home">
-                <p className="txtIntro">Home sss</p>
-                <div className="cssTest">test css sdf</div>
-            </div>
+            <section id="home-page">
+                <p className="txtIntro">Home</p>
+                <div className="cssTest">Test css</div>
+            </section>
         );
     }
 }

@@ -1,34 +1,49 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-// import { combineReducers } from 'redux-immutable';
+import { createStore, compose } from 'redux';
+
+import createMatchEnhancer from 'found/lib/createMatchEnhancer';
+import Matcher from 'found/lib/Matcher';
+
+import createHistoryEnhancer from 'farce/lib/createHistoryEnhancer';
+import BrowserProtocol from 'farce/lib/BrowserProtocol';
+import queryMiddleware from 'farce/lib/queryMiddleware';
+import FarceActions from 'farce/lib/Actions';
+
 import createSagaMiddleware from 'redux-saga';
-import { routerMiddleware } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
 
 import ENV from '../../config';
 
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';
+// import RoutersAuthen from '../routers/RoutersAuthen';
+import RoutersMain from '../routers/RouterMain';
 
-const storeConfig = () => {
-    const sagaMiddleware = createSagaMiddleware();
-    const routesMiddleware = routerMiddleware(createHistory());
+const sagaMiddleware = createSagaMiddleware();
 
-    const middlewares = [sagaMiddleware, routesMiddleware];
+const createHistoryEnhancerFunc = createHistoryEnhancer({
+    protocol: new BrowserProtocol(),
+    middlewares: [queryMiddleware, sagaMiddleware],
+});
+const createMatchEnhancerFunc = createMatchEnhancer(new Matcher(RoutersMain));
+const REDUX_DEVTOOLS = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__();
 
-    const enhancers = [applyMiddleware(...middlewares)];
+let composeEnhancers = compose(
+    createHistoryEnhancerFunc,
+    createMatchEnhancerFunc,
+);
 
-    let composeEnhancers = compose;
-    ENV !== 'production' &&
-        typeof window === 'object' &&
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-        (composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-            shouldHotReload: false
-        }));
+ENV !== 'production' &&
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+    (composeEnhancers = compose(
+        createHistoryEnhancerFunc,
+        createMatchEnhancerFunc,
+        REDUX_DEVTOOLS,
+    ));
 
-    const store = createStore(rootReducer, composeEnhancers(...enhancers));
-    sagaMiddleware.run(rootSaga);
+const store = createStore(rootReducer, composeEnhancers);
 
-    return store;
-};
+sagaMiddleware.run(rootSaga);
 
-export default storeConfig;
+store.dispatch(FarceActions.init());
+
+export default store;

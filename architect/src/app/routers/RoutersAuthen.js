@@ -1,44 +1,37 @@
-import asyncComponent from '../components/_asynComponent';
+import React from 'react';
 
-// import AsyncHome from '../components/Home';
-// import AsyncAbout from '../components/About';
-// import AsyncCatagories from '../components/Catagories';
-// import AsyncProducts from '../components/Products';
-// import AsyncMyComApi from '../components/myComApi';
-
-const AsyncHome = asyncComponent(() => import('../components/Home'));
-const AsyncAbout = asyncComponent(() => import('../components/About'));
-const AsyncCatagories = asyncComponent(() => import('../components/Categories'));
-const AsyncProducts = asyncComponent(() => import('../components/Products'));
-const AsyncMyComApi = asyncComponent(() => import('../components/myComApi'));
+import AsyncHome from '../components/Home';
+import AsyncAbout from '../components/About';
+import AsyncCatagories from '../components/Categories';
+import AsyncProducts from '../components/Products';
+import AsyncMyComApi from '../components/myComApi';
 
 const routersAuthen = [
     {
         title: 'Home',
         path: '/',
-        component: AsyncHome,
-        exact: true
+        Component: () => <AsyncHome />,
     },
     {
         title: 'About',
         path: '/about',
-        component: AsyncAbout
+        Component: () => <AsyncAbout />,
     },
     {
         title: 'Categories',
         path: '/categories',
-        component: AsyncCatagories
+        Component: () => <AsyncCatagories />,
     },
     {
         title: 'Products',
         path: '/products',
-        component: AsyncProducts
+        Component: () => <AsyncProducts />,
     },
     {
         title: 'Reddit api',
         path: '/mycomapi',
-        component: AsyncMyComApi
-    }
+        Component: () => <AsyncMyComApi />,
+    },
 ];
 
 export default routersAuthen;

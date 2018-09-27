@@ -1,11 +1,10 @@
-// import { combineReducers } from 'redux-immutable';
+import foundReducer from 'found/lib/foundReducer';
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 
 import reducerMyComApi from '../components/myComApi/reducer';
 
 const rootReducer = combineReducers({
-    router: routerReducer,
+    found: foundReducer,
     reducerMyComApi,
 });
 

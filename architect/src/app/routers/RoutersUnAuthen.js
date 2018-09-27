@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Login from '../components/_unAuthen/login';
 import ResetPass from '../components/_unAuthen/resetPass';
 import SignUp from '../components/_unAuthen/signUp';
@@ -6,19 +8,18 @@ const routersUnAuthen = [
     {
         title: 'Login',
         path: '/login',
-        component: Login,
-        exact: true
+        Component: () => <Login />,
     },
     {
         title: 'Sign up',
         path: '/signup',
-        component: SignUp
+        Component: () => <SignUp />,
     },
     {
         title: 'Reset pass',
         path: '/resetpass',
-        component: ResetPass
-    }
+        Component: () => <ResetPass />,
+    },
 ];
 
 export default routersUnAuthen;
