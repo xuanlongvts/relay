@@ -17,7 +17,7 @@ export default class API {
         this.headers = {
             'content-type': 'application/json',
             'x-app-auth': `Bearer ${this.token}`,
-            'x-csrf-token': SessionStorageAdapter.getItem('csrfToken')
+            'x-csrf-token': SessionStorageAdapter.getItem('csrfToken'),
         };
     }
 
@@ -62,7 +62,7 @@ export default class API {
             data: payload,
             method: 'PUT',
             url: path,
-            headers: this.headers
+            headers: this.headers,
         });
     }
 
@@ -72,7 +72,44 @@ export default class API {
             data: payload,
             method: 'POST',
             url: path,
-            headers: this.headers
+            headers: this.headers,
         });
     }
 }
+
+// componentDidMount() {
+//     axios({
+//         url: 'https://api.github.com/graphql',
+//         method: 'post',
+//         headers: {
+//             Authorization: `bearer ${process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN}`,
+//         },
+//         data: {
+//             query: `
+//                 query {
+//                     viewer {
+//                         repositories(first: 50) {
+//                             edges {
+//                                 repository:node {
+//                                     name
+
+//                                     issues(first: 10) {
+//                                         totalCount
+//                                         edges {
+//                                             node {
+//                                                 title
+//                                                 bodyHTML
+//                                             }
+//                                         }
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+//             `,
+//         },
+//     }).then(result => {
+//         console.log('data: ', result.data.data);
+//     });
+// }

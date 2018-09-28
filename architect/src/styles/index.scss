@@ -35,8 +35,9 @@ ul {
 }
 
 .nav {
-    li {
+    > li {
         display: inline-block;
+        position: relative;
 
         &.active {
             a {
@@ -54,6 +55,25 @@ ul {
 
             &:hover {
                 color: #111;
+            }
+        }
+
+        .sub {
+            position: absolute;
+            display: none;
+            width: 100%;
+            background: $white;
+
+            a {
+                font-size: 12px;
+            }
+        }
+
+        &.hasSub {
+            &:hover {
+                .sub {
+                    display: block;
+                }
             }
         }
     }
@@ -109,7 +129,7 @@ ul {
 
 .productsWrap {
     overflow: hidden;
-    padding-top: 30px;
+    padding: 30px;
 
     .siderbar {
         width: 25%;

@@ -14,8 +14,7 @@ import ENV from '../../config';
 
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';
-// import RoutersAuthen from '../routers/RoutersAuthen';
-import RoutersMain from '../routers/RouterMain';
+import RoutersMain from '../routers/mainRouter';
 
 const sagaMiddleware = createSagaMiddleware();
 
