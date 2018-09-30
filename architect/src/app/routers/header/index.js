@@ -5,6 +5,8 @@ import NavMain from './nav';
 
 class Header extends PureComponent {
     render() {
+        const { router } = this.props;
+
         return (
             <header id="header">
                 <div className="headerTop">
@@ -12,7 +14,7 @@ class Header extends PureComponent {
                     <h1 className="App-title">Welcome to React, Relay, GraphQL</h1>
                 </div>
 
-                <NavMain />
+                <NavMain router={router} />
             </header>
         );
     }

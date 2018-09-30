@@ -39,12 +39,6 @@ ul {
         display: inline-block;
         position: relative;
 
-        &.active {
-            a {
-                color: #111;
-            }
-        }
-
         a {
             display: inline-block;
             padding: 5px 15px;
@@ -56,6 +50,10 @@ ul {
             &:hover {
                 color: #111;
             }
+
+            &.curr {
+                color: #111;
+            }
         }
 
         .sub {
@@ -63,6 +61,8 @@ ul {
             display: none;
             width: 100%;
             background: $white;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(200, 200, 200, 0.2);
 
             a {
                 font-size: 12px;
@@ -163,6 +163,10 @@ ul {
             &:hover {
                 text-decoration: underline;
             }
+
+            &.active {
+                font-weight: 700;
+            }
         }
     }
 
@@ -178,7 +182,9 @@ ul {
     }
 }
 
-.reddit-api {
+#redditPage {
+    padding: 0 30px;
+
     ul {
         text-align: left;
 
@@ -202,4 +208,13 @@ ul {
         cursor: pointer;
         opacity: 1;
     }
+}
+
+#main-content {
+    min-height: 300px;
+}
+
+.cateComm {
+    font-size: 30px;
+    padding-top: 100px;
 }

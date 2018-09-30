@@ -1,4 +1,6 @@
-import * as RouterAll from '../consts';
+import RouterAll from '../consts';
+
+const routerCategories = RouterAll.categories;
 
 const nav = {
     home: {
@@ -16,15 +18,15 @@ const nav = {
         sub: {
             shoes: {
                 name: 'Shoes',
-                path: `${RouterAll.categories}${RouterAll.categories_shoes}`,
+                path: `${routerCategories}${RouterAll.categories_shoes}`,
             },
             boots: {
                 name: 'Boots',
-                path: `${RouterAll.categories}${RouterAll.categories_boots}`,
+                path: `${routerCategories}${RouterAll.categories_boots}`,
             },
             footwear: {
                 name: 'Footwear',
-                path: `${RouterAll.categories}${RouterAll.categories_footwear}`,
+                path: `${routerCategories}${RouterAll.categories_footwear}`,
             },
         },
     },

@@ -1,15 +1,19 @@
-const home = '/';
-const about = '/about';
+const routerMainConfig = {
+    home: '/',
+    about: '/about',
 
-const categories = '/categories';
-const categories_shoes = '/shoes';
-const categories_boots = '/boots';
-const categories_footwear = '/footwear';
+    categories: '/categories',
+    categories_shoes: '/shoes',
+    categories_boots: '/boots',
+    categories_footwear: '/footwear',
 
-const products = '/products';
-const apireddit = '/apireddit';
-const login = '/login';
-const signup = '/signup';
-const resetpass = '/resetpass';
+    products: '/products',
+    productsDetail: '/:productId',
 
-export { home, about, categories, categories_shoes, categories_boots, categories_footwear, products, apireddit, login, signup, resetpass };
+    apireddit: '/apireddit',
+    login: '/login',
+    signup: '/signup',
+    resetpass: '/resetpass',
+};
+
+export default routerMainConfig;

@@ -115,8 +115,6 @@ ul {
 .nav > li {
   display: inline-block;
   position: relative; }
-  .nav > li.active a {
-    color: #111; }
   .nav > li a {
     display: inline-block;
     padding: 5px 15px;
@@ -126,11 +124,15 @@ ul {
     text-transform: uppercase; }
     .nav > li a:hover {
       color: #111; }
+    .nav > li a.curr {
+      color: #111; }
   .nav > li .sub {
     position: absolute;
     display: none;
     width: 100%;
-    background: #fff; }
+    background: #fff;
+    text-align: left;
+    box-shadow: 0 0 10px rgba(200, 200, 200, 0.2); }
     .nav > li .sub a {
       font-size: 12px; }
   .nav > li.hasSub:hover .sub {
@@ -194,18 +196,22 @@ ul {
       text-decoration: none; }
       .productsWrap .siderbar a:hover {
         text-decoration: underline; }
+      .productsWrap .siderbar a.active {
+        font-weight: 700; }
   .productsWrap .products {
     width: 70%;
     float: right; }
   .productsWrap .productDetail p {
     font-size: 22px; }
 
-.reddit-api ul {
-  text-align: left; }
-  .reddit-api ul.loaded {
-    opacity: 0.5; }
-  .reddit-api ul li {
-    margin-bottom: 10px; }
+#redditPage {
+  padding: 0 30px; }
+  #redditPage ul {
+    text-align: left; }
+    #redditPage ul.loaded {
+      opacity: 0.5; }
+    #redditPage ul li {
+      margin-bottom: 10px; }
 
 .refresh {
   cursor: default;
@@ -215,3 +221,10 @@ ul {
   .refresh.enable {
     cursor: pointer;
     opacity: 1; }
+
+#main-content {
+  min-height: 300px; }
+
+.cateComm {
+  font-size: 30px;
+  padding-top: 100px; }

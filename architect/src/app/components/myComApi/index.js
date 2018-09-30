@@ -51,7 +51,7 @@ class App extends PureComponent {
                 {isFetching && posts.length === 0 && <h2>Loading...</h2>}
                 {!isFetching && posts.length === 0 && <h2>Empty.</h2>}
                 {posts.length > 0 && (
-                    <ul className={isFetching ? 'loaded' : ''}>
+                    <ul className={isFetching ? 'loaded' : 'listNews'}>
                         {posts.map((post, key) => (
                             <li key={key}>{post.title}</li>
                         ))}

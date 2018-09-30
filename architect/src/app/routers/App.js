@@ -18,9 +18,9 @@ class Routers extends PureComponent {
                 <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="Default React.js Boilerplate">
                     <meta name="description" content="A React.js Boilerplate application" />
                 </Helmet>
-                <Header />
+                <Header router={children.props} />
 
-                {children ? children : null}
+                <section id="main-content">{children ? children : null}</section>
 
                 <Footer />
             </Fragment>

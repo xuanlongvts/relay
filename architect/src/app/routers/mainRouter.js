@@ -1,7 +1,7 @@
 import React from 'react';
 
 import asyncComponent from '../components/_asynComponent';
-import * as RouterAll from './consts';
+import RouterAll from './consts';
 
 import App from './App';
 
@@ -12,9 +12,14 @@ import SignUp from '../components/_unAuthen/signUp';
 import AsyncHome from '../components/Home';
 
 import AsyncAbout from '../components/About';
-import AsyncCatagories from '../components/Categories';
-import AsyncProducts from '../components/Products';
-// import AsyncMyComApi from '../components/myComApi';
+
+import AsyncCatagories from '../components/categories/Categories';
+import Boots from '../components/categories/boots';
+import Shoes from '../components/categories/shoes';
+import Footwear from '../components/categories/footwear';
+
+import AsyncProducts from '../components/products';
+import AsyncProductsDetail from '../components/products/Product';
 
 import NotFound from '../components/NotFound';
 
@@ -22,7 +27,7 @@ const AsyncMyComApi = asyncComponent(() => import('../components/myComApi'));
 
 const routeConfig = [
     {
-        path: '/',
+        path: RouterAll.home,
         Component: App,
         children: [
             {
@@ -41,31 +46,28 @@ const routeConfig = [
                     },
                     {
                         path: RouterAll.categories_shoes,
-                        Component: () => <div>Shoes</div>,
+                        Component: () => <Shoes />,
                     },
                     {
-                        title: 'Boots',
                         path: RouterAll.categories_boots,
-                        Component: () => <div>Boots</div>,
+                        Component: () => <Boots />,
                     },
                     {
-                        title: 'Footwear',
                         path: RouterAll.categories_footwear,
-                        Component: () => <div>Footwear</div>,
+                        Component: () => <Footwear />,
                     },
                 ],
             },
             {
                 path: RouterAll.products,
-
+                Component: AsyncProducts,
                 children: [
-                    { Component: () => <AsyncProducts /> },
                     {
-                        path: '/:productId',
-                        Component: props => {
-                            console.log('props: ', props);
-                            return <div>111</div>;
-                        },
+                        Component: () => <div>Please choose Product</div>,
+                    },
+                    {
+                        path: RouterAll.productsDetail,
+                        Component: props => <AsyncProductsDetail {...props} />,
                     },
                 ],
             },
