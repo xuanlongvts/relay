@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'found';
+
+import RouterAll from '../consts';
 import NavRouter from './navConfig';
 
 class Nav extends PureComponent {
@@ -7,37 +9,41 @@ class Nav extends PureComponent {
         super(props);
     }
 
-    // componentDidMount() {
-    //     const { router } = this.props;
-    //     console.log('router: ', router);
-    // }
-
     menuDyn(data) {
         const { router } = this.props;
-        console.log('router: ', router);
+        const getRoutes = router.routes.length && router.routes.filter(item => item.path).map(item => item.path);
+
+        let isHome = false;
+        if (getRoutes.length === 1 && getRoutes[0] === RouterAll.home) {
+            isHome = true;
+        } else {
+            isHome = false;
+        }
 
         let menuNew = [];
         for (let key in data) {
             const { name, sub, path } = data[key];
-            const classActive = router.location.pathname === path ? 'curr' : null;
 
             if (data[key].hasOwnProperty('sub')) {
-                menuNew.push(this.renderItem(key, name, path, classActive, sub));
+                menuNew.push(this.renderItem(key, name, path, isHome, sub));
                 this.menuDyn(data[key].sub);
             } else {
-                menuNew.push(this.renderItem(key, name, path, classActive, false));
+                menuNew.push(this.renderItem(key, name, path, isHome, false));
             }
         }
         return menuNew;
     }
 
-    renderItem(key, name, path, classActive, isSub) {
+    renderItem(key, name, path, isHome, isSub) {
         let link;
         let sub = [];
 
+        let activeClassName = 'curr';
+        !isHome && path === RouterAll.home && (activeClassName = '');
+
         link = (
             <li key={key} className={isSub ? 'hasSub' : null}>
-                <Link to={path} className={classActive}>
+                <Link to={path} activeClassName={activeClassName}>
                     {name}
                 </Link>
                 {isSub && <ul className="sub">{this.menuDyn(isSub)}</ul>}

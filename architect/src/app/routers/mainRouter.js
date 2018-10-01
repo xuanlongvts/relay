@@ -27,7 +27,6 @@ const AsyncMyComApi = asyncComponent(() => import('../components/myComApi'));
 
 const routeConfig = [
     {
-        path: RouterAll.home,
         Component: App,
         children: [
             {
