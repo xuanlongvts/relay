@@ -21,6 +21,9 @@ import Footwear from '../components/categories/footwear';
 import AsyncProducts from '../components/products';
 import AsyncProductsDetail from '../components/products/Product';
 
+import AsyncGithub from '../components/githubApi';
+import AsyncGithubDetail from '../components/githubApi/githubDetail';
+
 import NotFound from '../components/NotFound';
 
 const AsyncMyComApi = asyncComponent(() => import('../components/myComApi'));
@@ -73,6 +76,19 @@ const routeConfig = [
             {
                 path: RouterAll.apireddit,
                 Component: () => <AsyncMyComApi />,
+            },
+            {
+                path: RouterAll.apigithub,
+                Component: AsyncGithub,
+                children: [
+                    {
+                        Component: () => <div>Please choose menu for api github</div>,
+                    },
+                    {
+                        path: RouterAll.productsDetail,
+                        Component: props => <AsyncGithubDetail {...props} />,
+                    },
+                ],
             },
             {
                 path: RouterAll.login,

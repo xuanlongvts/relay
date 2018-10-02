@@ -10,7 +10,7 @@ import FarceActions from 'farce/lib/Actions';
 
 import createSagaMiddleware from 'redux-saga';
 
-import ENV from '../../config';
+import ENV from '../../config/apiRest';
 
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { Config } from '../../config';
-import SessionStorageAdapter from '../_utils/sessionStorage';
+import Config from '../../config/apiRest';
 
 export default class API {
     constructor() {
@@ -17,7 +16,6 @@ export default class API {
         this.headers = {
             'content-type': 'application/json',
             'x-app-auth': `Bearer ${this.token}`,
-            'x-csrf-token': SessionStorageAdapter.getItem('csrfToken'),
         };
     }
 

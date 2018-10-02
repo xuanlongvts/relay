@@ -38,6 +38,10 @@ const nav = {
         name: 'Reddit api',
         path: RouterAll.apireddit,
     },
+    apigithub: {
+        name: 'Github api',
+        path: RouterAll.apigithub,
+    },
 };
 
 export default nav;

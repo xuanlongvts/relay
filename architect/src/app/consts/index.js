@@ -1,2 +1,2 @@
-export const NAMESPACE_AAA = 'AAA';
-export const NAMESPACE_BBB = 'BBB';
+export const NAMESPACE_REDDIT = 'REDDIT';
+export const NAMESPACE_GITHUB = 'GITHUB';

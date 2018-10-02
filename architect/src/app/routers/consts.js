@@ -11,6 +11,9 @@ const routerMainConfig = {
     productsDetail: '/:productId',
 
     apireddit: '/apireddit',
+
+    apigithub: '/apigithub',
+
     login: '/login',
     signup: '/signup',
     resetpass: '/resetpass',
