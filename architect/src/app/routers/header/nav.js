@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { Container } from 'reactstrap';
 
 import { Link } from 'found';
 
@@ -59,7 +60,9 @@ class Nav extends PureComponent {
     render() {
         return (
             <nav id="navigaMain">
-                <ul className="nav">{this.menuDyn(NavRouter)}</ul>
+                <Container>
+                    <ul className="nav">{this.menuDyn(NavRouter)}</ul>
+                </Container>
             </nav>
         );
     }

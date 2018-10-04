@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
+import LoadingComponent from '../_base/loadingComponent';
 
 const asynComponent = importComponent => {
     class AsyncComponent extends PureComponent {
         constructor(props) {
             super(props);
             this.state = {
-                component: null
+                component: null,
             };
         }
 
@@ -13,7 +14,7 @@ const asynComponent = importComponent => {
             const { default: component } = await importComponent();
             if (component) {
                 this.setState({
-                    component: component
+                    component: component,
                 });
             }
         }
@@ -21,7 +22,7 @@ const asynComponent = importComponent => {
         render() {
             const { component: C } = this.state;
 
-            return C ? <C {...this.props} /> : <div className="loading">Loading...</div>;
+            return C ? <C {...this.props} /> : <LoadingComponent />;
         }
     }
 

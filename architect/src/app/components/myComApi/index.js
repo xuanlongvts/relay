@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Container } from 'reactstrap';
+
 import { selectReddit, invalidateReddit } from './actions';
 
 class App extends PureComponent {
@@ -31,32 +33,34 @@ class App extends PureComponent {
 
         return (
             <section id="redditPage">
-                <span>
-                    <h1>{selectedReddit}</h1>
-                    <select onChange={e => this.handleChange(e.target.value)} value={selectedReddit}>
-                        {['reactjs', 'frontend'].map(option => (
-                            <option value={option} key={option}>
-                                {option}
-                            </option>
-                        ))}
-                    </select>
-                </span>
-
-                <p>
-                    {lastUpdated && <span>Last updated at {new Date(lastUpdated).toLocaleTimeString()}. </span>}
-                    <span onClick={!isFetching ? this.handleRefreshClick : null} className={!isFetching ? 'enable refresh' : 'refresh'}>
-                        Refresh
+                <Container>
+                    <span>
+                        <h1>{selectedReddit}</h1>
+                        <select onChange={e => this.handleChange(e.target.value)} value={selectedReddit}>
+                            {['reactjs', 'frontend'].map(option => (
+                                <option value={option} key={option}>
+                                    {option}
+                                </option>
+                            ))}
+                        </select>
                     </span>
-                </p>
-                {isFetching && posts.length === 0 && <h2>Loading...</h2>}
-                {!isFetching && posts.length === 0 && <h2>Empty.</h2>}
-                {posts.length > 0 && (
-                    <ul className={isFetching ? 'loaded' : 'listNews'}>
-                        {posts.map((post, key) => (
-                            <li key={key}>{post.title}</li>
-                        ))}
-                    </ul>
-                )}
+
+                    <p>
+                        {lastUpdated && <span>Last updated at {new Date(lastUpdated).toLocaleTimeString()}. </span>}
+                        <span onClick={!isFetching ? this.handleRefreshClick : null} className={!isFetching ? 'enable refresh' : 'refresh'}>
+                            Refresh
+                        </span>
+                    </p>
+                    {isFetching && posts.length === 0 && <h2>Loading...</h2>}
+                    {!isFetching && posts.length === 0 && <h2>Empty.</h2>}
+                    {posts.length > 0 && (
+                        <ul className={isFetching ? 'loaded' : 'listNews'}>
+                            {posts.map((post, key) => (
+                                <li key={key}>{post.title}</li>
+                            ))}
+                        </ul>
+                    )}
+                </Container>
             </section>
         );
     }

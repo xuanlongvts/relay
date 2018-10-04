@@ -1,17 +1,14 @@
 import React, { PureComponent } from 'react';
-import GetRepo from './graph/query';
+
+import GetRepo from './getRepo';
 
 class Github extends PureComponent {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount() {
-        GetRepo();
-    }
-
     render() {
-        return <div className="githubs">githubs</div>;
+        return <GetRepo />;
     }
 }
 

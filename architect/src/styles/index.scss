@@ -35,6 +35,8 @@ ul {
 }
 
 .nav {
+    justify-content: center;
+
     > li {
         display: inline-block;
         position: relative;
@@ -132,7 +134,7 @@ ul {
     padding: 30px;
 
     .siderbar {
-        width: 25%;
+        width: 100%;
         padding: 10px;
         display: block;
         float: left;
@@ -171,7 +173,6 @@ ul {
     }
 
     .products {
-        width: 70%;
         float: right;
     }
 
@@ -217,4 +218,8 @@ ul {
 .cateComm {
     font-size: 30px;
     padding-top: 100px;
+}
+
+.listRepos {
+    text-align: left;
 }
