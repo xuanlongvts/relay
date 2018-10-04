@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
 import logo from '../../../images/logo.svg';
 
 import NavMain from './nav';
@@ -19,5 +21,9 @@ class Header extends PureComponent {
         );
     }
 }
+
+Header.propTypes = {
+    router: PropTypes.object.isRequired,
+};
 
 export default Header;

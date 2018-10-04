@@ -33,6 +33,8 @@ const getRepo = () => {
         },
     }).then(result => {
         console.log('data: ', result.data.data);
+        return result.data.data;
+        // console.log('data: ', result.data.data);
     });
 };
 

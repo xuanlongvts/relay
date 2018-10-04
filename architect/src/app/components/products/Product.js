@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import productsData from './dataListProducts';
 
 const Product = props => {
@@ -20,6 +22,10 @@ const Product = props => {
     else productData = <h2> Sorry. Product does not exist </h2>;
 
     return <div className="products">{productData}</div>;
+};
+
+Product.propTypes = {
+    params: PropTypes.object.isRequired,
 };
 
 export default Product;

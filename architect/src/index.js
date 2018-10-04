@@ -3,9 +3,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
+import { Resolver } from 'found-relay';
+
 import createConnectedRouter from 'found/lib/createConnectedRouter';
 import createRender from 'found/lib/createRender';
-import resolver from 'found/lib/resolver';
+
+import Environment from './relay/env';
 
 import store from './app/stores';
 
@@ -19,7 +22,7 @@ const ConnectedRouter = createConnectedRouter({
 
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedRouter resolver={resolver} />
+        <ConnectedRouter resolver={new Resolver(Environment)} />
     </Provider>,
     document.getElementById('root'),
 );

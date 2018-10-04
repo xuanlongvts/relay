@@ -69,6 +69,8 @@
         "watch-css": "npm run build-css && node-sass-chokidar src/styles -o src/styles --watch --recursive",
         "start-js": "node scripts/start.js",
         "build-js": "node scripts/build.js",
+        "buildSchema": "node ./tools/getSchema.js",
+        "relay": "yarn buildSchema && relay-compiler --src ./src/ --schema ./tools/schema.graphql",
         "dev": "REACT_APP_ENV=dev npm-run-all -p watch-css start-js",
         "build-uat": "REACT_APP_ENV=uat npm-run-all build-css build-js",
         "build-liv": "REACT_APP_ENV=production npm-run-all build-css build-js",

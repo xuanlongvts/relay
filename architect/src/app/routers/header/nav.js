@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
 import { Link } from 'found';
 
 import RouterAll from '../consts';
@@ -62,5 +64,9 @@ class Nav extends PureComponent {
         );
     }
 }
+
+Nav.propTypes = {
+    router: PropTypes.object.isRequired,
+};
 
 export default Nav;
