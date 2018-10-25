@@ -1,8 +1,8 @@
 1. create-react-app architect
 2. yarn eject 
 3. add "plugins": [ "relay" ] into package.json
-4. yarn add --dev babel-plugin-relay graphql relay-compiler
-5. yarn add react-relay prettier node-sass-chokidar npm-run-all react-helmet react-redux redux redux-saga
+4. yarn add --dev babel-plugin-relay relay-compiler
+5. yarn add react-relay graphql prettier node-sass-chokidar npm-run-all react-helmet react-redux redux redux-saga
 6. "prettier": "find . \\( -name node_modules -o -name __generated__ \\) -prune -or \\( -name '*.js' -o -name '*.css' -o -name '*.json' -o -name '*.md' \\) -print | xargs prettier --write"  (add into script)
 7. "prettier": {
         "singleQuote": true,
