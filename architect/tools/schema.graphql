@@ -575,6 +575,194 @@ type Bot implements Node & Actor & UniformResourceLocatable {
   url: URI!
 }
 
+"""A branch protection rule."""
+type BranchProtectionRule implements Node {
+  """
+  A list of conflicts matching branches protection rule and other branch protection rules
+  """
+  branchProtectionRuleConflicts(
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+  ): BranchProtectionRuleConflictConnection!
+
+  """The actor who created this branch protection rule."""
+  creator: Actor
+
+  """Identifies the primary key from the database."""
+  databaseId: Int
+
+  """
+  Will new commits pushed to matching branches dismiss pull request review approvals.
+  """
+  dismissesStaleReviews: Boolean!
+  id: ID!
+
+  """Can admins overwrite branch protection."""
+  isAdminEnforced: Boolean!
+
+  """Repository refs that are protected by this rule"""
+  matchingRefs(
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+  ): RefConnection!
+
+  """Identifies the protection rule pattern."""
+  pattern: String!
+
+  """A list push allowances for this branch protection rule."""
+  pushAllowances(
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+  ): PushAllowanceConnection!
+
+  """The repository associated with this branch protection rule."""
+  repository: Repository
+
+  """Number of approving reviews required to update matching branches."""
+  requiredApprovingReviewCount: Int
+
+  """
+  List of required status check contexts that must pass for commits to be accepted to matching branches.
+  """
+  requiredStatusCheckContexts: [String]
+
+  """Are approving reviews required to update matching branches."""
+  requiresApprovingReviews: Boolean!
+
+  """Are commits required to be signed."""
+  requiresCommitSignatures: Boolean!
+
+  """Are status checks required to update matching branches."""
+  requiresStatusChecks: Boolean!
+
+  """Are branches required to be up to date before merging."""
+  requiresStrictStatusChecks: Boolean!
+
+  """Is pushing to matching branches restricted."""
+  restrictsPushes: Boolean!
+
+  """Is dismissal of pull request reviews restricted."""
+  restrictsReviewDismissals: Boolean!
+
+  """A list review dismissal allowances for this branch protection rule."""
+  reviewDismissalAllowances(
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+  ): ReviewDismissalAllowanceConnection!
+}
+
+"""A conflict between two branch protection rules."""
+type BranchProtectionRuleConflict {
+  """Identifies the branch protection rule."""
+  branchProtectionRule: BranchProtectionRule
+
+  """Identifies the conflicting branch protection rule."""
+  conflictingBranchProtectionRule: BranchProtectionRule
+
+  """Identifies the branch ref that has conflicting rules"""
+  ref: Ref
+}
+
+"""The connection type for BranchProtectionRuleConflict."""
+type BranchProtectionRuleConflictConnection {
+  """A list of edges."""
+  edges: [BranchProtectionRuleConflictEdge]
+
+  """A list of nodes."""
+  nodes: [BranchProtectionRuleConflict]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+"""An edge in a connection."""
+type BranchProtectionRuleConflictEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: BranchProtectionRuleConflict
+}
+
+"""The connection type for BranchProtectionRule."""
+type BranchProtectionRuleConnection {
+  """A list of edges."""
+  edges: [BranchProtectionRuleEdge]
+
+  """A list of nodes."""
+  nodes: [BranchProtectionRule]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+"""An edge in a connection."""
+type BranchProtectionRuleEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: BranchProtectionRule
+}
+
 """An object that can be closed"""
 interface Closable {
   """
@@ -1207,6 +1395,74 @@ type ConvertedNoteToIssueEvent implements Node {
   id: ID!
 }
 
+"""Autogenerated input type of CreateBranchProtectionRule"""
+input CreateBranchProtectionRuleInput {
+  """
+  The global relay id of the repository in which a new branch protection rule should be created in.
+  """
+  repositoryId: ID!
+
+  """The glob-like pattern used to determine matching branches."""
+  pattern: String!
+
+  """Are approving reviews required to update matching branches."""
+  requiresApprovingReviews: Boolean
+
+  """Number of approving reviews required to update matching branches."""
+  requiredApprovingReviewCount: Int
+
+  """Are commits required to be signed."""
+  requiresCommitSignatures: Boolean
+
+  """Can admins overwrite branch protection."""
+  isAdminEnforced: Boolean
+
+  """Are status checks required to update matching branches."""
+  requiresStatusChecks: Boolean
+
+  """Are branches required to be up to date before merging."""
+  requiresStrictStatusChecks: Boolean
+
+  """Are reviews from code owners required to update matching branches."""
+  requiresCodeOwnerReviews: Boolean
+
+  """
+  Will new commits pushed to matching branches dismiss pull request review approvals.
+  """
+  dismissesStaleReviews: Boolean
+
+  """Is dismissal of pull request reviews restricted."""
+  restrictsReviewDismissals: Boolean
+
+  """
+  A list of User or Team IDs allowed to dismiss reviews on pull requests targeting matching branches.
+  """
+  reviewDismissalActorIds: [ID!]
+
+  """Is pushing to matching branches restricted."""
+  restrictsPushes: Boolean
+
+  """A list of User or Team IDs allowed to push to matching branches."""
+  pushActorIds: [ID!]
+
+  """
+  List of required status check contexts that must pass for commits to be accepted to matching branches.
+  """
+  requiredStatusCheckContexts: [String!]
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of CreateBranchProtectionRule"""
+type CreateBranchProtectionRulePayload {
+  """The newly created BranchProtectionRule."""
+  branchProtectionRule: BranchProtectionRule
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
 """Autogenerated input type of CreateProject"""
 input CreateProjectInput {
   """The owner ID to create the project under."""
@@ -1327,6 +1583,21 @@ enum DefaultRepositoryPermissionField {
 interface Deletable {
   """Check if the current viewer can delete this object."""
   viewerCanDelete: Boolean!
+}
+
+"""Autogenerated input type of DeleteBranchProtectionRule"""
+input DeleteBranchProtectionRuleInput {
+  """The global relay id of the branch protection rule to be deleted."""
+  branchProtectionRuleId: ID!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of DeleteBranchProtectionRule"""
+type DeleteBranchProtectionRulePayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
 }
 
 """Autogenerated input type of DeleteProjectCard"""
@@ -3332,15 +3603,6 @@ type MarketplaceCategory implements Node {
   url: URI!
 }
 
-"""An edge in a connection."""
-type MarketplaceCategoryEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-
-  """The item at the end of the edge."""
-  node: MarketplaceCategory
-}
-
 """A listing in the GitHub integration marketplace."""
 type MarketplaceListing implements Node {
   """The GitHub App this listing represents."""
@@ -3911,11 +4173,17 @@ type Mutation {
   """Adds a star to a Starrable."""
   addStar(input: AddStarInput!): AddStarPayload
 
+  """Create a new branch protection rule"""
+  createBranchProtectionRule(input: CreateBranchProtectionRuleInput!): CreateBranchProtectionRulePayload
+
   """Creates a new project."""
   createProject(input: CreateProjectInput!): CreateProjectPayload
 
   """Rejects a suggested topic for the repository."""
   declineTopicSuggestion(input: DeclineTopicSuggestionInput!): DeclineTopicSuggestionPayload
+
+  """Delete a branch protection rule"""
+  deleteBranchProtectionRule(input: DeleteBranchProtectionRuleInput!): DeleteBranchProtectionRulePayload
 
   """Deletes a project."""
   deleteProject(input: DeleteProjectInput!): DeleteProjectPayload
@@ -3960,6 +4228,9 @@ type Mutation {
 
   """Unlock a lockable object"""
   unlockLockable(input: UnlockLockableInput!): UnlockLockablePayload
+
+  """Create a new branch protection rule"""
+  updateBranchProtectionRule(input: UpdateBranchProtectionRuleInput!): UpdateBranchProtectionRulePayload
 
   """Updates an existing project."""
   updateProject(input: UpdateProjectInput!): UpdateProjectPayload
@@ -4084,8 +4355,19 @@ type Organization implements Node & Actor & RegistryPackageOwner & RegistryPacka
     """Ordering options for repositories returned from the connection"""
     orderBy: RepositoryOrder
 
-    """Affiliation options for repositories returned from the connection"""
+    """
+    Array of viewer's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    current viewer owns.
+    """
     affiliations: [RepositoryAffiliation]
+
+    """
+    Array of owner's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    organization or user being viewed owns.
+    """
+    ownerAffiliations: [RepositoryAffiliation]
 
     """
     If non-null, filters repositories according to whether they have been locked
@@ -4157,8 +4439,19 @@ type Organization implements Node & Actor & RegistryPackageOwner & RegistryPacka
     """Ordering options for repositories returned from the connection"""
     orderBy: RepositoryOrder
 
-    """Affiliation options for repositories returned from the connection"""
+    """
+    Array of viewer's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    current viewer owns.
+    """
     affiliations: [RepositoryAffiliation]
+
+    """
+    Array of owner's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    organization or user being viewed owns.
+    """
+    ownerAffiliations: [RepositoryAffiliation]
 
     """
     If non-null, filters repositories according to whether they have been locked
@@ -5528,6 +5821,25 @@ type PullRequestReview implements Node & Comment & Deletable & Updatable & Updat
   """The moment the editor made the last edit"""
   lastEditedAt: DateTime
 
+  """A list of teams that this review was made on behalf of."""
+  onBehalfOf(
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+  ): TeamConnection!
+
   """Identifies when the comment was published at."""
   publishedAt: DateTime
 
@@ -5637,6 +5949,9 @@ type PullRequestReviewComment implements Node & Comment & Deletable & Updatable 
   """The original line index in the diff to which the comment applies."""
   originalPosition: Int!
 
+  """Identifies when the comment body is outdated"""
+  outdated: Boolean!
+
   """The path to which the comment applies."""
   path: String!
 
@@ -5688,6 +6003,9 @@ type PullRequestReviewComment implements Node & Comment & Deletable & Updatable 
 
   """The HTTP path permalink for this review comment."""
   resourcePath: URI!
+
+  """Identifies the state of the comment."""
+  state: PullRequestReviewCommentState!
 
   """Identifies when the comment was last updated."""
   updatedAt: DateTime!
@@ -5752,6 +6070,15 @@ type PullRequestReviewCommentEdge {
 
   """The item at the end of the edge."""
   node: PullRequestReviewComment
+}
+
+"""The possible states of a pull request review comment."""
+enum PullRequestReviewCommentState {
+  """A comment that is part of a pending review"""
+  PENDING
+
+  """A comment that is part of a submitted review"""
+  SUBMITTED
 }
 
 """The connection type for PullRequestReview."""
@@ -6030,12 +6357,17 @@ enum PullRequestTimelineItemsItemType {
 type PushAllowance implements Node {
   """The actor that can push."""
   actor: PushAllowanceActor
+
+  """
+  Identifies the branch protection rule associated with the allowed user or team.
+  """
+  branchProtectionRule: BranchProtectionRule
   id: ID!
 
   """
   Identifies the protected branch associated with the allowed user or team.
   """
-  protectedBranch: ProtectedBranch!
+  protectedBranch: ProtectedBranch! @deprecated(reason: "The `ProtectedBranch` type is deprecated and will be removed soon. Use `Repository.branchProtectionRule` instead. Removal on 2019-01-01 UTC.")
 }
 
 """Types that can be an actor."""
@@ -6093,7 +6425,7 @@ type Query {
     """Exclude categories with no listings."""
     excludeEmpty: Boolean
 
-    """Exclude subcategories"""
+    """Returns top level categories only, excluding any subcategories."""
     excludeSubcategories: Boolean
   ): [MarketplaceCategory!]!
 
@@ -6934,6 +7266,25 @@ type Repository implements Node & ProjectOwner & RegistryPackageOwner & Subscrib
     before: String
   ): UserConnection!
 
+  """A list of branch protection rules for this repository."""
+  branchProtectionRules(
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+  ): BranchProtectionRuleConnection!
+
   """Returns the code of conduct for this repository"""
   codeOfConduct: CodeOfConduct
 
@@ -7066,8 +7417,19 @@ type Repository implements Node & ProjectOwner & RegistryPackageOwner & Subscrib
     """Ordering options for repositories returned from the connection"""
     orderBy: RepositoryOrder
 
-    """Affiliation options for repositories returned from the connection"""
+    """
+    Array of viewer's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    current viewer owns.
+    """
     affiliations: [RepositoryAffiliation]
+
+    """
+    Array of owner's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    organization or user being viewed owns.
+    """
+    ownerAffiliations: [RepositoryAffiliation]
 
     """
     If non-null, filters repositories according to whether they have been locked
@@ -7339,7 +7701,7 @@ type Repository implements Node & ProjectOwner & RegistryPackageOwner & Subscrib
     Returns the elements in the list that come before the specified cursor.
     """
     before: String
-  ): ProtectedBranchConnection!
+  ): ProtectedBranchConnection! @deprecated(reason: "The `ProtectedBranch` type is deprecated and will be removed soon. Use `Repository.branchProtectionRules` instead. Removal on 2019-01-01 UTC.")
 
   """Returns a single pull request from the current repository by number."""
   pullRequest(
@@ -7852,8 +8214,19 @@ interface RepositoryOwner {
     """Ordering options for repositories returned from the connection"""
     orderBy: RepositoryOrder
 
-    """Affiliation options for repositories returned from the connection"""
+    """
+    Array of viewer's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    current viewer owns.
+    """
     affiliations: [RepositoryAffiliation]
+
+    """
+    Array of owner's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    organization or user being viewed owns.
+    """
+    ownerAffiliations: [RepositoryAffiliation]
 
     """
     If non-null, filters repositories according to whether they have been locked
@@ -7885,8 +8258,19 @@ interface RepositoryOwner {
     """Ordering options for repositories returned from the connection"""
     orderBy: RepositoryOrder
 
-    """Affiliation options for repositories returned from the connection"""
+    """
+    Array of viewer's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    current viewer owns.
+    """
     affiliations: [RepositoryAffiliation]
+
+    """
+    Array of owner's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    organization or user being viewed owns.
+    """
+    ownerAffiliations: [RepositoryAffiliation]
 
     """
     If non-null, filters repositories according to whether they have been locked
@@ -8026,12 +8410,17 @@ A team or user who has the ability to dismiss a review on a protected branch.
 type ReviewDismissalAllowance implements Node {
   """The actor that can dismiss."""
   actor: ReviewDismissalAllowanceActor
+
+  """
+  Identifies the branch protection rule associated with the allowed user or team.
+  """
+  branchProtectionRule: BranchProtectionRule
   id: ID!
 
   """
   Identifies the protected branch associated with the allowed user or team.
   """
-  protectedBranch: ProtectedBranch!
+  protectedBranch: ProtectedBranch! @deprecated(reason: "The `ProtectedBranch` type is deprecated and will be removed soon. Use `ReviewDismissalAllowance.branchProtectionRule` instead. Removal on 2019-01-01 UTC.")
 }
 
 """Types that can be an actor."""
@@ -8949,7 +9338,7 @@ type TextMatchHighlight {
 }
 
 """A topic aggregates entities that are related to a subject."""
-type Topic implements Node {
+type Topic implements Node & Starrable {
   id: ID!
 
   """The topic's name."""
@@ -8961,6 +9350,33 @@ type Topic implements Node {
   
   """
   relatedTopics: [Topic!]!
+
+  """A list of users who have starred this starrable."""
+  stargazers(
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Order for connection"""
+    orderBy: StarOrder
+  ): StargazerConnection!
+
+  """
+  Returns a boolean indicating whether the viewing user has starred this starrable.
+  """
+  viewerHasStarred: Boolean!
 }
 
 """The connection type for Topic."""
@@ -9171,6 +9587,72 @@ interface Updatable {
 interface UpdatableComment {
   """Reasons why the current viewer can not update this comment."""
   viewerCannotUpdateReasons: [CommentCannotUpdateReason!]!
+}
+
+"""Autogenerated input type of UpdateBranchProtectionRule"""
+input UpdateBranchProtectionRuleInput {
+  """The global relay id of the branch protection rule to be updated."""
+  branchProtectionRuleId: ID!
+
+  """The glob-like pattern used to determine matching branches."""
+  pattern: String
+
+  """Are approving reviews required to update matching branches."""
+  requiresApprovingReviews: Boolean
+
+  """Number of approving reviews required to update matching branches."""
+  requiredApprovingReviewCount: Int
+
+  """Are commits required to be signed."""
+  requiresCommitSignatures: Boolean
+
+  """Can admins overwrite branch protection."""
+  isAdminEnforced: Boolean
+
+  """Are status checks required to update matching branches."""
+  requiresStatusChecks: Boolean
+
+  """Are branches required to be up to date before merging."""
+  requiresStrictStatusChecks: Boolean
+
+  """Are reviews from code owners required to update matching branches."""
+  requiresCodeOwnerReviews: Boolean
+
+  """
+  Will new commits pushed to matching branches dismiss pull request review approvals.
+  """
+  dismissesStaleReviews: Boolean
+
+  """Is dismissal of pull request reviews restricted."""
+  restrictsReviewDismissals: Boolean
+
+  """
+  A list of User or Team IDs allowed to dismiss reviews on pull requests targeting matching branches.
+  """
+  reviewDismissalActorIds: [ID!]
+
+  """Is pushing to matching branches restricted."""
+  restrictsPushes: Boolean
+
+  """A list of User or Team IDs allowed to push to matching branches."""
+  pushActorIds: [ID!]
+
+  """
+  List of required status check contexts that must pass for commits to be accepted to matching branches.
+  """
+  requiredStatusCheckContexts: [String!]
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdateBranchProtectionRule"""
+type UpdateBranchProtectionRulePayload {
+  """The newly created BranchProtectionRule."""
+  branchProtectionRule: BranchProtectionRule
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
 }
 
 """Autogenerated input type of UpdateProjectCard"""
@@ -9664,8 +10146,19 @@ type User implements Node & Actor & RegistryPackageOwner & RegistryPackageSearch
     """Ordering options for repositories returned from the connection"""
     orderBy: RepositoryOrder
 
-    """Affiliation options for repositories returned from the connection"""
+    """
+    Array of viewer's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    current viewer owns.
+    """
     affiliations: [RepositoryAffiliation]
+
+    """
+    Array of owner's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    organization or user being viewed owns.
+    """
+    ownerAffiliations: [RepositoryAffiliation]
 
     """
     If non-null, filters repositories according to whether they have been locked
@@ -9750,8 +10243,19 @@ type User implements Node & Actor & RegistryPackageOwner & RegistryPackageSearch
     """Ordering options for repositories returned from the connection"""
     orderBy: RepositoryOrder
 
-    """Affiliation options for repositories returned from the connection"""
+    """
+    Array of viewer's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    current viewer owns.
+    """
     affiliations: [RepositoryAffiliation]
+
+    """
+    Array of owner's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    organization or user being viewed owns.
+    """
+    ownerAffiliations: [RepositoryAffiliation]
 
     """
     If non-null, filters repositories according to whether they have been locked
@@ -9879,6 +10383,13 @@ type User implements Node & Actor & RegistryPackageOwner & RegistryPackageSearch
     affiliations: [RepositoryAffiliation]
 
     """
+    Array of owner's affiliation options for repositories returned from the
+    connection. For example, OWNER will include only repositories that the
+    organization or user being viewed owns.
+    """
+    ownerAffiliations: [RepositoryAffiliation]
+
+    """
     If non-null, filters repositories according to whether they have been locked
     """
     isLocked: Boolean
@@ -9952,7 +10463,7 @@ type UserContentEditEdge {
   node: UserContentEdit
 }
 
-"""An edge in a connection."""
+"""Represents a user."""
 type UserEdge {
   """A cursor for use in pagination."""
   cursor: String!

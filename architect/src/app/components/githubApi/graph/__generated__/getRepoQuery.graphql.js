@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 307f100b27bb263a0b5d0d9c027dd787
+ * @relayHash 64f1272d5922a27023d9d98403713a9d
  */
 
 /* eslint-disable */
@@ -14,6 +14,7 @@ export type getRepoQueryResponse = {|
   +viewer: {|
     +repositories: {|
       +edges: ?$ReadOnlyArray<?{|
+        +cursor: string,
         +repository: ?{|
           +name: string,
           +issues: {|
@@ -25,8 +26,14 @@ export type getRepoQueryResponse = {|
               |}
             |}>,
           |},
-        |}
-      |}>
+        |},
+      |}>,
+      +pageInfo: {|
+        +startCursor: ?string,
+        +endCursor: ?string,
+        +hasPreviousPage: boolean,
+        +hasNextPage: boolean,
+      |},
     |}
   |}
 |};
@@ -40,11 +47,12 @@ export type getRepoQuery = {|
 /*
 query getRepoQuery {
   viewer {
-    repositories(first: 50) {
+    repositories(first: 5) {
       edges {
+        cursor
         repository: node {
           name
-          issues(first: 10) {
+          issues(first: 5) {
             totalCount
             edges {
               node {
@@ -57,6 +65,12 @@ query getRepoQuery {
           id
         }
       }
+      pageInfo {
+        startCursor
+        endCursor
+        hasPreviousPage
+        hasNextPage
+      }
     }
     id
   }
@@ -68,25 +82,24 @@ var v0 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 50,
+    "value": 5,
     "type": "Int"
   }
 ],
 v1 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "cursor",
+  "args": null,
+  "storageKey": null
+},
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "name",
   "args": null,
   "storageKey": null
 },
-v2 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 10,
-    "type": "Int"
-  }
-],
 v3 = {
   "kind": "ScalarField",
   "alias": null,
@@ -109,6 +122,45 @@ v5 = {
   "storageKey": null
 },
 v6 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "pageInfo",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "startCursor",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "endCursor",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "hasPreviousPage",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "hasNextPage",
+      "args": null,
+      "storageKey": null
+    }
+  ]
+},
+v7 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -120,7 +172,7 @@ return {
   "operationKind": "query",
   "name": "getRepoQuery",
   "id": null,
-  "text": "query getRepoQuery {\n  viewer {\n    repositories(first: 50) {\n      edges {\n        repository: node {\n          name\n          issues(first: 10) {\n            totalCount\n            edges {\n              node {\n                title\n                bodyHTML\n                id\n              }\n            }\n          }\n          id\n        }\n      }\n    }\n    id\n  }\n}\n",
+  "text": "query getRepoQuery {\n  viewer {\n    repositories(first: 5) {\n      edges {\n        cursor\n        repository: node {\n          name\n          issues(first: 5) {\n            totalCount\n            edges {\n              node {\n                title\n                bodyHTML\n                id\n              }\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        startCursor\n        endCursor\n        hasPreviousPage\n        hasNextPage\n      }\n    }\n    id\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -142,7 +194,7 @@ return {
             "kind": "LinkedField",
             "alias": null,
             "name": "repositories",
-            "storageKey": "repositories(first:50)",
+            "storageKey": "repositories(first:5)",
             "args": v0,
             "concreteType": "RepositoryConnection",
             "plural": false,
@@ -156,6 +208,7 @@ return {
                 "concreteType": "RepositoryEdge",
                 "plural": true,
                 "selections": [
+                  v1,
                   {
                     "kind": "LinkedField",
                     "alias": "repository",
@@ -165,13 +218,13 @@ return {
                     "concreteType": "Repository",
                     "plural": false,
                     "selections": [
-                      v1,
+                      v2,
                       {
                         "kind": "LinkedField",
                         "alias": null,
                         "name": "issues",
-                        "storageKey": "issues(first:10)",
-                        "args": v2,
+                        "storageKey": "issues(first:5)",
+                        "args": v0,
                         "concreteType": "IssueConnection",
                         "plural": false,
                         "selections": [
@@ -205,7 +258,8 @@ return {
                     ]
                   }
                 ]
-              }
+              },
+              v6
             ]
           }
         ]
@@ -230,7 +284,7 @@ return {
             "kind": "LinkedField",
             "alias": null,
             "name": "repositories",
-            "storageKey": "repositories(first:50)",
+            "storageKey": "repositories(first:5)",
             "args": v0,
             "concreteType": "RepositoryConnection",
             "plural": false,
@@ -244,6 +298,7 @@ return {
                 "concreteType": "RepositoryEdge",
                 "plural": true,
                 "selections": [
+                  v1,
                   {
                     "kind": "LinkedField",
                     "alias": "repository",
@@ -253,13 +308,13 @@ return {
                     "concreteType": "Repository",
                     "plural": false,
                     "selections": [
-                      v1,
+                      v2,
                       {
                         "kind": "LinkedField",
                         "alias": null,
                         "name": "issues",
-                        "storageKey": "issues(first:10)",
-                        "args": v2,
+                        "storageKey": "issues(first:5)",
+                        "args": v0,
                         "concreteType": "IssueConnection",
                         "plural": false,
                         "selections": [
@@ -284,21 +339,22 @@ return {
                                 "selections": [
                                   v4,
                                   v5,
-                                  v6
+                                  v7
                                 ]
                               }
                             ]
                           }
                         ]
                       },
-                      v6
+                      v7
                     ]
                   }
                 ]
-              }
+              },
+              v6
             ]
           },
-          v6
+          v7
         ]
       }
     ]
@@ -306,5 +362,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd6311878e71f1d70db1663a00b2fc189';
+(node/*: any*/).hash = 'd40f2632462ac9a0dca44b01ad575dc6';
 module.exports = node;

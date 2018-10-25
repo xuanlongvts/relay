@@ -26,6 +26,7 @@ class Github extends PureComponent {
                         );
                     }
                     const listRepos = props.viewer.repositories.edges;
+
                     return (
                         <div className="listRepos">
                             {listRepos.map((item, key) => {
